@@ -1,22 +1,17 @@
-﻿using CSharpYouTube.Properties;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Linq;
-using Microsoft.Win32;
-using System.IO;
-using System.Security;
 
 namespace CSharpYouTubePlayer
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
 
         private NotifyIcon trayIcon;
         private ContextMenu trayMenu;
 
-        public Form1()
+        public Main()
         {
             this.Opacity = 0.77;
             InitializeComponent();
@@ -118,7 +113,7 @@ namespace CSharpYouTubePlayer
         [DllImport("user32.dll", EntryPoint = "SetLayeredWindowAttributes")]
         public static extern bool SetLayeredWindowAttributes(IntPtr hWnd, int crKey, byte alpha, LWA dwFlags);
 
-        private void travarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LockScreen_Click(object sender, EventArgs e)
         {
             this.TransparencyKey = this.BackColor = Color.Red; // the color key to transparent, choose a color that you don't use
             this.FormBorderStyle = FormBorderStyle.None;
@@ -131,12 +126,11 @@ namespace CSharpYouTubePlayer
             this.txtUrl.Visible = false;
         }
         
-        private void rodaVídeoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayVideo_Click(object sender, EventArgs e)
         {
             string urlValida = "";
             if (txtUrl.Text != string.Empty)
             {
-
                 string source = txtUrl.Text.Trim();
                 string[] stringSeparators = new string[] { "v=" };
                 var result = source.Split(stringSeparators, StringSplitOptions.None);

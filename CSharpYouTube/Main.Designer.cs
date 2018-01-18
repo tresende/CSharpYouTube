@@ -1,6 +1,6 @@
 ﻿namespace CSharpYouTubePlayer
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -80,14 +80,14 @@
             this.travarToolStripMenuItem.Name = "travarToolStripMenuItem";
             this.travarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.travarToolStripMenuItem.Text = "Travar";
-            this.travarToolStripMenuItem.Click += new System.EventHandler(this.travarToolStripMenuItem_Click);
+            this.travarToolStripMenuItem.Click += new System.EventHandler(this.LockScreen_Click);
             // 
             // rodaVídeoToolStripMenuItem
             // 
             this.rodaVídeoToolStripMenuItem.Name = "rodaVídeoToolStripMenuItem";
             this.rodaVídeoToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.rodaVídeoToolStripMenuItem.Text = "Roda Vídeo";
-            this.rodaVídeoToolStripMenuItem.Click += new System.EventHandler(this.rodaVídeoToolStripMenuItem_Click);
+            this.rodaVídeoToolStripMenuItem.Click += new System.EventHandler(this.PlayVideo_Click);
             // 
             // webBrowser1
             // 
