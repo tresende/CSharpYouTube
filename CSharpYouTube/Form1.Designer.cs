@@ -36,10 +36,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.travarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rodaVídeoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.axShockwaveFlash1 = new AxShockwaveFlashObjects.AxShockwaveFlash();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axShockwaveFlash1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUrl
@@ -79,7 +78,7 @@
             // travarToolStripMenuItem
             // 
             this.travarToolStripMenuItem.Name = "travarToolStripMenuItem";
-            this.travarToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.travarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.travarToolStripMenuItem.Text = "Travar";
             this.travarToolStripMenuItem.Click += new System.EventHandler(this.travarToolStripMenuItem_Click);
             // 
@@ -90,14 +89,13 @@
             this.rodaVídeoToolStripMenuItem.Text = "Roda Vídeo";
             this.rodaVídeoToolStripMenuItem.Click += new System.EventHandler(this.rodaVídeoToolStripMenuItem_Click);
             // 
-            // axShockwaveFlash1
+            // webBrowser1
             // 
-            this.axShockwaveFlash1.Enabled = true;
-            this.axShockwaveFlash1.Location = new System.Drawing.Point(6, 111);
-            this.axShockwaveFlash1.Name = "axShockwaveFlash1";
-            this.axShockwaveFlash1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axShockwaveFlash1.OcxState")));
-            this.axShockwaveFlash1.Size = new System.Drawing.Size(673, 509);
-            this.axShockwaveFlash1.TabIndex = 0;
+            this.webBrowser1.Location = new System.Drawing.Point(6, 120);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(411, 311);
+            this.webBrowser1.TabIndex = 12;
             // 
             // Form1
             // 
@@ -105,9 +103,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(430, 443);
+            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.txtUrl);
-            this.Controls.Add(this.axShockwaveFlash1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -120,21 +118,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axShockwaveFlash1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private AxShockwaveFlashObjects.AxShockwaveFlash axShockwaveFlash1;
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem travarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rodaVídeoToolStripMenuItem;
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }
 
