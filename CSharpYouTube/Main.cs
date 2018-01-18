@@ -8,17 +8,35 @@ namespace CSharpYouTubePlayer
 {
     public partial class Main : Form
     {
+
+        #region Private Properties
+
         private NotifyIcon trayIcon;
         private ContextMenu trayMenu;
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        private static extern int GetWindowLong(IntPtr hWnd, GWL nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
+        private static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetLayeredWindowAttributes")]
+        private static extern bool SetLayeredWindowAttributes(IntPtr hWnd, int crKey, byte alpha, LWA dwFlags);
+
+        private int WM_MOUSEACTIVATE = 0x0021, MA_NOACTIVATE = 0x0003;
+
+        #endregion
+
+        #region Constructor
 
         public Main()
         {
             this.Opacity = 0.77;
             InitializeComponent();
             trayMenu = new ContextMenu();
-            trayMenu.MenuItems.Add("Destravar", Unlock);
+            trayMenu.MenuItems.Add(Resource.Unlock, Unlock);
             trayIcon = new NotifyIcon();
-            trayIcon.Text = "Player Thiago";
+            trayIcon.Text = Resource.Title;
             trayIcon.Icon = new Icon(SystemIcons.Application, 40, 40);
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
@@ -36,29 +54,17 @@ namespace CSharpYouTubePlayer
             this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
         }
 
-        private void Unlock(object sender, EventArgs e)
+        #endregion
+
+        protected override CreateParams CreateParams
         {
-            int wl = GetWindowLong(this.Handle, GWL.ExStyle);
-            wl = 327688;
-            SetWindowLong(this.Handle, GWL.ExStyle, wl);
-            this.TopMost = false;
-            this.BackColor = Color.White;
-            this.trackBar1.Visible = true;
-            this.menuStrip1.Visible = true;
-            this.txtUrl.Visible = true;
-            this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
+                return cp;
+            }
         }
-
-        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
-        public static extern int GetWindowLong(IntPtr hWnd, GWL nIndex);
-
-        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
-        public static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, int dwNewLong);
-
-        [DllImport("user32.dll", EntryPoint = "SetLayeredWindowAttributes")]
-        public static extern bool SetLayeredWindowAttributes(IntPtr hWnd, int crKey, byte alpha, LWA dwFlags);
-
-        private int WM_MOUSEACTIVATE = 0x0021, MA_NOACTIVATE = 0x0003;
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
@@ -71,14 +77,17 @@ namespace CSharpYouTubePlayer
             }
         }
 
-        protected override CreateParams CreateParams
+        private void Unlock(object sender, EventArgs e)
         {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                return cp;
-            }
+            int wl = GetWindowLong(this.Handle, GWL.ExStyle);
+            wl = 327688;
+            SetWindowLong(this.Handle, GWL.ExStyle, wl);
+            this.TopMost = false;
+            this.BackColor = Color.White;
+            this.trackBar1.Visible = true;
+            this.menuStrip1.Visible = true;
+            this.txtUrl.Visible = true;
+            this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
         }
 
         protected override void WndProc(ref Message m)
@@ -112,7 +121,9 @@ namespace CSharpYouTubePlayer
                 string source = txtUrl.Text.Trim();
                 string[] stringSeparators = new string[] { "v=" };
                 var result = source.Split(stringSeparators, StringSplitOptions.None);
-                urlValida = "https://www.youtube.com/embed/" + result[1];
+
+
+                urlValida = string.Format("https://www.youtube.com/embed/{0}?autoplay=1", result[1]);
             }
             if (!InternetExplorerBrowserEmulation.IsBrowserEmulationSet())
             {
