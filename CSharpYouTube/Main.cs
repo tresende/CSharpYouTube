@@ -2,12 +2,12 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using CSharpYouTube;
 
 namespace CSharpYouTubePlayer
 {
     public partial class Main : Form
     {
-
         private NotifyIcon trayIcon;
         private ContextMenu trayMenu;
 
@@ -49,6 +49,17 @@ namespace CSharpYouTubePlayer
             this.FormBorderStyle = FormBorderStyle.SizableToolWindow;
         }
 
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        public static extern int GetWindowLong(IntPtr hWnd, GWL nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
+        public static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetLayeredWindowAttributes")]
+        public static extern bool SetLayeredWindowAttributes(IntPtr hWnd, int crKey, byte alpha, LWA dwFlags);
+
+        private int WM_MOUSEACTIVATE = 0x0021, MA_NOACTIVATE = 0x0003;
+
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             try
@@ -70,8 +81,6 @@ namespace CSharpYouTubePlayer
             }
         }
 
-        private int WM_MOUSEACTIVATE = 0x0021, MA_NOACTIVATE = 0x0003;
-
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == WM_MOUSEACTIVATE)
@@ -81,37 +90,6 @@ namespace CSharpYouTubePlayer
             }
             base.WndProc(ref m);
         }
-
-        protected override bool ShowWithoutActivation
-        {
-            get { return true; }
-        }
-
-        public enum GWL
-        {
-            ExStyle = -20
-        }
-
-        public enum WS_EX
-        {
-            Transparent = 0x20,
-            Layered = 0x80000
-        }
-
-        public enum LWA
-        {
-            ColorKey = 0x1,
-            Alpha = 0x2
-        }
-
-        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
-        public static extern int GetWindowLong(IntPtr hWnd, GWL nIndex);
-
-        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
-        public static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, int dwNewLong);
-
-        [DllImport("user32.dll", EntryPoint = "SetLayeredWindowAttributes")]
-        public static extern bool SetLayeredWindowAttributes(IntPtr hWnd, int crKey, byte alpha, LWA dwFlags);
 
         private void LockScreen_Click(object sender, EventArgs e)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//https://www.codeproject.com/Articles/793687/Configuring-the-emulation-mode-of-an-Internet-Expl#_articleTop
+using System;
 using System.IO;
 using System.Security;
 using Microsoft.Win32;
